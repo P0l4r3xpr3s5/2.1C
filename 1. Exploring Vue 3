@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue 3 Concepts</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Conditional Rendering</h1>
+    <div v-if="showText">
+      <p>banana</p>
+      <img src="https://clipart-library.com/image_gallery2/Banana-PNG-Picture.png" style="width: 300px; height: auto;">
+    </div>
+    <div v-else>
+      <p>muffin</p>
+      <img src="https://static.vecteezy.com/system/resources/previews/014/033/565/non_2x/muffin-transparent-background-free-png.png" style="width: 300px; height: auto;">
+    </div>
+
+    <button @click="toggleText">Toggle</button>
+
+    <div v-show="showAnotherText">
+      <p>Disappearing and reappearing text.</p>
+    </div>
+    <br>
+    <label for="country">Select a Country:</label>
+    <select id="country" v-model="selectedCountry">
+        <option v-for="country in countries" :key="country.id" :value="country.name">{{ country.name }}</option>
+    </select>
+    <p>You selected: {{ selectedCountry }}</p>
+
+    <!-- New User Input Form -->
+    <h1>User Input Form</h1>
+    <form @submit.prevent="submitForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" v-model="name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" v-model="email" required><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" v-model="message" rows="4" cols="50" required></textarea>
+        
+        <label for="subscribe">Subscribe to Newsletter:</label>
+        <input type="checkbox" id="subscribe" v-model="subscribe"><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div v-if="submitted">
+        <h2>Submitted Data:</h2>
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Email:</strong> {{ email }} </p>
+        <p><strong>Message:</strong> {{ message }} </p>
+        <p><strong>Subscribed:</strong> {{ subscribe ? 'Yes' : 'No' }} </p>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        showText: true,
+        showAnotherText: true,
+        selectedCountry: '',
+        countries: [
+          { id: 1, name: 'United States' },
+          { id: 2, name: 'Canada' },
+          { id: 3, name: 'United Kingdom' },
+          { id: 4, name: 'Australia' },
+          { id: 5, name: 'Germany' }
+        ],
+        name: '',
+        email: '',
+        message: '',
+        subscribe: false,
+        submitted: false
+      },
+      methods: {
+        toggleText() {
+          this.showText = !this.showText;
+          this.showAnotherText = !this.showAnotherText;
+        },
+        submitForm() {
+          this.submitted = true;
+        }
+      }
+    });
+
+  </script>
+</body>
+</html>
